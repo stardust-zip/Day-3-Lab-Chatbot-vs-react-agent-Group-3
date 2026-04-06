@@ -6,6 +6,7 @@ from src.core.llm_provider import LLMProvider
 
 class GeminiProvider(LLMProvider):
     def __init__(self, model_name: str = "gemini-1.5-flash", api_key: Optional[str] = None):
+        api_key = api_key or os.getenv("GEMINI_API_KEY")
         super().__init__(model_name, api_key)
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel(model_name)
