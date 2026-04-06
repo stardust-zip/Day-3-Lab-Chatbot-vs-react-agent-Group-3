@@ -78,6 +78,13 @@
               python-lsp-server
 
               chromadb # AI-native open-source embedding database
+              openai
+              google-generativeai
+              python-dotenv
+              pydantic
+              requests
+              pytest
+              llama-cpp-python
 
 
               # Add whatever else you'd like here.
