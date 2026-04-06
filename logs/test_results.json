@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Tim dien thoai theo gia",
+    "query": "Tim giup toi dien thoai Samsung duoi 3 trieu",
+    "chatbot": "Chào bạn! Hiện tại, cửa hàng chúng tôi có một số mẫu điện thoại Samsung dưới 3 triệu. Bạn có muốn tham khảo mẫu nào cụ thể không? Nếu cần, tôi có thể giúp bạn tìm hiểu thêm.",
+    "agent_v1": "Sản phẩm bạn đang tìm là Samsung Galaxy A05, giá 2,490,000đ (còn 15 sản phẩm).",
+    "agent_v2": "Dien thoai Samsung duoi 3 triệu: Samsung Galaxy A05 (2.490.000đ) và Samsung Galaxy M04 (2.740.000đ)."
+  },
+  {
+    "id": 2,
+    "name": "Mua nhieu mon + hoi khuyen mai chung",
+    "query": "Mua dien thoai iPhone 17 Pro + op lung + kinh cuong luc het bao nhieu tien, co khuyen mai gi khi mua nhieu khong?",
+    "chatbot": "Hiện tại, giá iPhone 17 Pro có thể dao động tùy thuộc vào dung lượng lưu trữ bạn chọn. Để có giá chính xác và biết thêm thông tin về ốp lưng, kính cường lực cũng như các chương trình khuyến mãi khi mua nhiều sản phẩm, bạn vui lòng ghé cửa hàng hoặc trang web của chúng tôi để được hỗ trợ cụ thể nhất. Cảm ơn bạn!",
+    "agent_v1": "Xin loi, toi khong the tra loi trong so buoc cho phep. Vui long thu lai voi cau hoi ngan gon hon.",
+    "agent_v2": "iPhone 17 Pro (32.990.000đ) + Op lung (350.000đ) + Kinh cuong luc (150.000đ) = 33.490.000đ. Áp dụng mã giảm giá \"MUANHIEU\" giam 7%, tổng thanh toán là 31.144.300đ."
+  },
+  {
+    "id": 3,
+    "name": "Hoi cac hang dien thoai",
+    "query": "Cua hang co ban dien thoai cua nhung hang nao?",
+    "chatbot": "Cửa hàng chúng tôi cung cấp điện thoại của nhiều thương hiệu nổi tiếng, bao gồm Apple, Samsung, Xiaomi, Oppo, Huawei, và nhiều hãng khác. Nếu bạn cần thông tin cụ thể hơn về sản phẩm nào, xin vui lòng cho tôi biết!",
+    "agent_v1": "Cửa hàng có các thương hiệu điện thoại sau: Apple (5 sản phẩm), OPPO (2 sản phẩm), Samsung (5 sản phẩm), Xiaomi (2 sản phẩm).",
+    "agent_v2": "Cửa hàng có bán điện thoại của các hãng sau: Apple, OPPO, Samsung, và Xiaomi."
+  },
+  {
+    "id": 4,
+    "name": "Mua combo + ap dung ma KM cu the",
+    "query": "Toi muon mua dien thoai iPhone 17 Pro + op lung + kinh cuong luc, neu ap dung khuyen mai HSSV2026 thi het bao nhieu tien?",
+    "chatbot": "Xin chào! Hiện tại, iPhone 17 Pro có giá khoảng 30 triệu đồng. Op lung khoảng 500.000 đồng và kinh cuong luc khoảng 300.000 đồng. Tổng cộng là khoảng 30.800.000 đồng.\n\nGiảm giá khuyến mãi HSSV2026 có thể giảm 10%, tức là khoảng 3.080.000 đồng. Như vậy, bạn sẽ phải thanh toán khoảng 27.720.000 đồng.\n\nHy vọng thông tin này hữu ích cho bạn!",
+    "agent_v1": "Xin loi, toi khong the tra loi trong so buoc cho phep. Vui long thu lai voi cau hoi ngan gon hon.",
+    "agent_v2": "iPhone 17 Pro (32.990.000đ) + Ốp lưng (350.000đ) + Kinh cường lực (150.000đ) = 33.490.000đ. Áp dụng mã HSSV2026 giảm 5%, thành toán: 31.815.500đ."
+  },
+  {
+    "id": 5,
+    "name": "Out-of-domain: hoi mua laptop",
+    "query": "Cua hang co nhan thu mua laptop khong?",
+    "chatbot": "Xin lỗi, cửa hàng chúng tôi hiện không thu mua laptop. Nếu bạn cần tư vấn về sản phẩm hay dịch vụ nào khác, vui lòng cho tôi biết!",
+    "agent_v1": "Cửa hàng chỉ hỗ trợ về điện thoại và phụ kiện.",
+    "agent_v2": "Xin loi, cua hang chung toi hien chi kinh doanh dien thoai va phu kien dien thoai. Chung toi khong nhan thu mua laptop. Quy khach co can tu van ve dien thoai khong a?"
+  }
+]
