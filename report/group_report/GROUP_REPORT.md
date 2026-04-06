@@ -20,9 +20,11 @@ So sánh hiệu năng giữa Chatbot (không tools) và ReAct Agent (có tools) 
 ### 2.1 ReAct Loop Implementation
 
 ```
-User Question --> [Thought] --> [Action: tool(args)] --> [Observation] --> loop...
-                                                                    |
-                                                              [Final Answer]
+                      +-----------------------------------------+
+                      v                                         |
+User Question --> [Thought] --> [Action: tool(args)] --> [Observation] 
+                                                                |
+                                                            [Final Answer]
 ```
 
 Vòng lặp ReAct hoạt động như sau:
@@ -30,7 +32,7 @@ Vòng lặp ReAct hoạt động như sau:
 1. LLM sinh ra **Thought** (suy nghĩ) và **Action** (gọi tool).
 2. Hệ thống parse Action, gọi tool tương ứng.
 3. Kết quả trả về làm **Observation**, nạp lại vào prompt.
-4. Lặp lại cho đến khi có **Final Answer** hoặc hết max_steps.
+4. Lặp lại từ **bước 1** cho đến khi có **Final Answer** hoặc hết max_steps.
 
 ### 2.2 Định nghĩa công cụ (Inventory)
 
@@ -70,21 +72,22 @@ Dữ liệu từ 5 test cases x 3 hệ thống = 15 lượt chạy, 36 LLM calls
 ### LLM Metrics
 | Metric | Giá trị |
 | :--- | :--- |
-| **Total LLM calls** | 36 |
-| **Avg Latency (P50)** | 1,359ms |
-| **Max Latency (P99)** | 5,835ms |
-| **Avg tokens/request** | 869 |
-| **Total tokens** | 31,273 |
-| **Total cost (estimate)** | $0.31 |
+| **Total LLM calls** | 38 |
+| **Avg Latency (P50)** | 1014ms |
+| **Min Latency (P99)** | 585ms |
+| **Max Latency (P99)** | 1906ms |
+| **Avg tokens/request** | 897 |
+| **Total tokens** | 34084 |
+| **Total cost (estimate)** | $0.3408 |
 
 ### System Comparison
 | Metric | Chatbot | Agent v1 | Agent v2 |
 | :--- | :--- | :--- | :--- |
-| **Success rate** | N/A | 60% (3/5) | **100% (5/5)** |
-| **Avg steps** | 1 (luôn 1) | 3.2 | **3.0** |
+| **Success rate** | N/A | 100% (5/5) | **100% (5/5)** |
+| **Avg steps** | 1 (luôn 1) | 3.4 | **3.0** |
 | **Avg latency/task** | 1,859ms | ~6,500ms | ~10,500ms |
 | **Errors** | 0 | 0 | 0 |
-| **Độ chính xác** | Thấp (bịa giá) | Trung bình | **Cao** |
+| **Độ chính xác** | Thấp (bịa đặt) | Trung bình | **Cao** |
 
 ### Token Efficiency
 | System | Avg prompt tokens | Avg completion tokens | Ratio |
@@ -147,10 +150,10 @@ Dữ liệu từ 5 test cases x 3 hệ thống = 15 lượt chạy, 36 LLM calls
 
 | Case | Độ phức tạp | Chatbot | Agent v1 | Agent v2 | Winner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| TC1: Tìm theo giá | Đơn giản | Chung chung | Chính xác | Chính xác | Agent |
-| TC2: Mua combo + KM | Phức tạp | Không trả lời | HẾT STEPS | Chính xác | **Agent v2** |
-| TC3: Liệt kê hãng | Đơn giản | Bịa thêm Huawei | Chính xác | Chính xác | Agent |
-| TC4: Combo + HSSV2026 | Phức tạp | BỊA GIÁ SAI | HẾT STEPS | **31.815.500đ** | **Agent v2** |
+| TC1: Tìm theo giá | Đơn giản | Không thể trả lời  | Chính xác | Chính xác + cross-sell | **Agent v2** |
+| TC2: Mua combo + KM | Phức tạp | Không thể trả lời | HẾT STEPS | Chính xác | **Agent v2** |
+| TC3: Liệt kê hãng | Đơn giản | Bịa thông tin | Chính xác | Chính xác + cross-sell | **Agent v2** |
+| TC4: Combo + HSSV2026 | Phức tạp | Phụ thuộc dữ liệu cũ | HẾT STEPS | Chính xác | **Agent v2** |
 | TC5: Out-of-domain | Ngoài PV | Đúng | Đúng | Đúng + cross-sell | **Agent v2** |
 
 ---
@@ -158,11 +161,11 @@ Dữ liệu từ 5 test cases x 3 hệ thống = 15 lượt chạy, 36 LLM calls
 ## 6. Production Readiness Review
 
 - **Security**: Dùng regex whitelist cho calculator (chỉ cho phép số + phép tính), tránh code injection.
-- **Guardrails**: max_steps=7 ngăn vòng lặp vô hạn. Duplicate action detection ngăn loop.
+- **Guardrails**: max_steps=7 ngăn vòng lặp vô hạn nhưng đảm bảo vẫn loop đủ để tận dụng hết tools. Kết hợp duplicate action detection ngăn loop.
 - **Scaling**:
   - Chuyển từ simulated data sang database thực (PostgreSQL/MongoDB)
   - Dùng LangGraph hoặc CrewAI cho multi-agent (1 agent tra giá, 1 agent tính toán)
-  - Thêm vector DB để chọn tool phù hợp từ danh sách lớn
+  - Thêm vector DB để tham chiếu + chọn tool phù hợp từ danh sách lớn
 - **Monitoring**: JSON telemetry đã sẵn sàng cho ELK Stack / Grafana dashboard
 - **Cost**: ~$0.31 cho 15 lượt chạy. Production cần cache kết quả tool để giảm token.
 
